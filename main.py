@@ -1,3 +1,4 @@
+from manage_Ingredients import *
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QMainWindow,
@@ -90,6 +91,7 @@ class MainWindow(QMainWindow):
 
         manage_ingredients_btn = MainMenuButton('Manage Ingredients')
         button_layout.addWidget(manage_ingredients_btn)
+        manage_ingredients_btn.clicked.connect(self.open_manage_meals_dialog)
 
         export_button = MainMenuButton('Export Menu')
         button_layout.addWidget(export_button)
@@ -102,6 +104,9 @@ class MainWindow(QMainWindow):
         widget.setLayout(layout)
         self.setCentralWidget(widget)
 
+    def open_manage_meals_dialog(self):
+        dlg = ManageIngredients()
+        dlg.exec()
 
 def main():
     app = QApplication([])
