@@ -21,7 +21,7 @@ class MainMenuButton(QPushButton):
             QPushButton {
                 background-color: dimgray;
                 color: white;
-                border-radius: 10px;
+                border-radius: 15px;
             }
             
             QPushButton:pressed {
