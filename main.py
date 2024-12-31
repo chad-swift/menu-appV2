@@ -12,6 +12,9 @@ from PySide6.QtWidgets import (
     QFrame
 )
 
+from manage_meals import ManageMeals
+
+
 class MainMenuButton(QPushButton):
     def __init__(self, text):
         super().__init__()
@@ -91,10 +94,11 @@ class MainWindow(QMainWindow):
 
         manage_ingredients_btn = MainMenuButton('Manage Ingredients')
         button_layout.addWidget(manage_ingredients_btn)
-        manage_ingredients_btn.clicked.connect(self.open_manage_meals_dialog)
+        manage_ingredients_btn.clicked.connect(self.open_manage_ingredients_dialog)
 
         export_button = MainMenuButton('Export Menu')
         button_layout.addWidget(export_button)
+        manage_meals_btn.clicked.connect(self.open_manage_meals_dialog)
 
         layout.addLayout(week_layout)
         layout.addLayout(button_layout)
@@ -104,8 +108,12 @@ class MainWindow(QMainWindow):
         widget.setLayout(layout)
         self.setCentralWidget(widget)
 
-    def open_manage_meals_dialog(self):
+    def open_manage_ingredients_dialog(self):
         dlg = ManageIngredients()
+        dlg.exec()
+
+    def open_manage_meals_dialog(self):
+        dlg = ManageMeals()
         dlg.exec()
 
 def main():
