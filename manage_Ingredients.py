@@ -24,17 +24,17 @@ class ManageIngredients(QDialog):
 
         layout.addWidget(ingredient_list)
 
-        add_new_ingredient_frame = QFrame()
-        add_new_ingredient_frame.setFrameShape(QFrame.Box)
-        add_new_ingredient_frame.setLineWidth(1)
-        add_new_ingredient_layout = QVBoxLayout()
-        add_new_ingredient_frame.setLayout(add_new_ingredient_layout)
-
         delete_ingredient_btn = QPushButton("Delete Ingredient")
         layout.addWidget(delete_ingredient_btn)
 
         new_ingredient_section_label = QLabel("Add New Ingredient:")
         layout.addWidget(new_ingredient_section_label)
+
+        add_new_ingredient_frame = QFrame()
+        add_new_ingredient_frame.setFrameShape(QFrame.Box)
+        add_new_ingredient_frame.setLineWidth(1)
+        add_new_ingredient_layout = QVBoxLayout()
+        add_new_ingredient_frame.setLayout(add_new_ingredient_layout)
 
         name_row = QHBoxLayout()
 
