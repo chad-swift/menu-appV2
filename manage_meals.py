@@ -1,11 +1,9 @@
+from add_new_meal import *
 from PySide6.QtWidgets import (
     QPushButton,
-    QDialog,
     QLabel,
     QListView,
-    QHBoxLayout,
     QVBoxLayout,
-    QLineEdit,
     QFrame,
     QDialog
 )
@@ -33,8 +31,13 @@ class ManageMeals(QDialog):
         frame.setLineWidth(1)
 
         add_new_meal_button = QPushButton('Add New Meal')
+        add_new_meal_button.clicked.connect(self.add_new_meal)
         frame_layout.addWidget(add_new_meal_button)
 
         layout.addWidget(frame)
 
         self.setLayout(layout)
+
+    def add_new_meal(self):
+        dlg = AddNewMeal()
+        dlg.exec()
