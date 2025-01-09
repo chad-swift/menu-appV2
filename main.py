@@ -1,4 +1,8 @@
-from manage_Ingredients import *
+import sys
+from classes import *
+
+from manage_ingredients import *
+from manage_meals import *
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QMainWindow,
@@ -12,7 +16,6 @@ from PySide6.QtWidgets import (
     QFrame
 )
 
-from manage_meals import ManageMeals
 
 
 class MainMenuButton(QPushButton):
@@ -51,8 +54,8 @@ class DayMenu(QWidget):
         day_layout.addWidget(day_label)
 
         meal_choice_layout = QHBoxLayout()
-        meal_choice = QComboBox()
-        meal_choice_layout.addWidget(meal_choice)
+        self.meal_choice = QComboBox()
+        meal_choice_layout.addWidget(self.meal_choice)
         meal_choice_layout.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 
         day_layout.addLayout(meal_choice_layout)
@@ -63,6 +66,8 @@ class DayMenu(QWidget):
 
         self.setLayout(layout)
 
+    def get_combobox(self):
+        return self.meal_choice
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -83,11 +88,17 @@ class MainWindow(QMainWindow):
             'Sunday',
         )
 
+        self.combo_boxes = []
+
         for day in days:
 
             day_menu = DayMenu(day)
 
+            self.combo_boxes.append(day_menu.get_combobox())
+
             week_layout.addWidget(day_menu)
+
+        self.get_and_update()
 
         manage_meals_btn = MainMenuButton('Manage Meals')
         button_layout.addWidget(manage_meals_btn)
@@ -108,16 +119,27 @@ class MainWindow(QMainWindow):
         widget.setLayout(layout)
         self.setCentralWidget(widget)
 
+    def get_and_update(self):
+        meals = get_meals_from_file()
+
+        for combobox in self.combo_boxes:
+            combobox.addItems(list(map(lambda meal: meal.get_name(), meals)))
+            combobox.setCurrentIndex(-1)
+
     def open_manage_ingredients_dialog(self):
-        dlg = ManageIngredients()
-        dlg.exec()
+
+        dlg = ManageIngredients(self)
+        if dlg.exec():
+            print('yes')
+        else:
+            print('no')
 
     def open_manage_meals_dialog(self):
         dlg = ManageMeals()
         dlg.exec()
 
 def main():
-    app = QApplication([])
+    app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
     app.exec()
