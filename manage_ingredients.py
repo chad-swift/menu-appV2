@@ -1,18 +1,24 @@
 
+from main import *
+from classes import *
 from PySide6.QtWidgets import (
     QPushButton,
     QDialog,
     QLabel,
-    QListView,
     QHBoxLayout,
     QVBoxLayout,
     QLineEdit,
-    QFrame
+    QFrame,
+    QListWidget,
 )
 
+
 class ManageIngredients(QDialog):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent:MainWindow):
+        super().__init__(parent)
+
+        self.main_window = parent
+
         self.setWindowTitle("Manage Ingredients")
 
         layout = QVBoxLayout()
@@ -20,11 +26,14 @@ class ManageIngredients(QDialog):
         ingredient_name_label = QLabel("Ingredients:")
         layout.addWidget(ingredient_name_label)
 
-        ingredient_list = QListView()
+        self.ingredient_list = QListWidget()
 
-        layout.addWidget(ingredient_list)
+        self.get_and_update_data()
+
+        layout.addWidget(self.ingredient_list)
 
         delete_ingredient_btn = QPushButton("Delete Ingredient")
+        delete_ingredient_btn.clicked.connect(self.remove_ingredient)
         layout.addWidget(delete_ingredient_btn)
 
         new_ingredient_section_label = QLabel("Add New Ingredient:")
@@ -66,5 +75,15 @@ class ManageIngredients(QDialog):
 
         self.setLayout(layout)
 
+    def get_and_update_data(self):
+        ingredients = get_ingredients_from_file()
 
+        for ingredient in ingredients:
+            self.ingredient_list.addItem(str(ingredient))
 
+    def remove_ingredient(self):
+        current_item = self.ingredient_list.currentItem()
+        print(current_item)
+
+    def closeEvent(self, event):
+        event.accept()
