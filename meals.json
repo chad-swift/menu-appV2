@@ -1,33 +1,28 @@
 {
     "meals": [
         {
-            "name": "Ham Sandwich",
+            "name": "Fast Food",
             "ingredients": [
                 {
-                    "name": "Tomato",
-                    "quantifier": "slc",
-                    "quantity": 2
-                },
-                {
-                    "name": "Ham",
-                    "quantifier": "lbs",
-                    "quantity": 1
+                    "name": "Fast Food Stuffs",
+                    "quantifier": "N/A",
+                    "quantity": 0.0
                 }
             ]
         },
         {
-            "name": "Turkey Sandwich",
+            "name": "Turkey Sub",
             "ingredients": [
                 {
                     "name": "Turkey",
                     "quantifier": "lbs",
                     "quantity": 0.1
-                }
-            ]
-        },
-        {
-            "name": "Tomato Sandwich",
-            "ingredients": [
+                },
+                {
+                    "name": "Mustard",
+                    "quantifier": "oz",
+                    "quantity": 0.01
+                },
                 {
                     "name": "Tomato",
                     "quantifier": "slc",

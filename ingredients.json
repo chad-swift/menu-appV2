@@ -1,8 +1,8 @@
 {
     "ingredients": [
         {
-            "name": "Tomato",
-            "quantifier": "slc"
+            "name": "Fast Food Stuffs",
+            "quantifier": "N/A"
         },
         {
             "name": "Ham",
@@ -11,6 +11,14 @@
         {
             "name": "Turkey",
             "quantifier": "lbs"
+        },
+        {
+            "name": "Mustard",
+            "quantifier": "oz"
+        },
+        {
+            "name": "Tomato",
+            "quantifier": "slc"
         }
     ]
 }
