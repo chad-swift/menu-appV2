@@ -100,6 +100,7 @@ class MainWindow(QMainWindow):
 
         manage_meals_btn = MainMenuButton('Manage Meals')
         button_layout.addWidget(manage_meals_btn)
+        manage_meals_btn.clicked.connect(self.__open_manage_meals_dialog)
 
         manage_ingredients_btn = MainMenuButton('Manage Ingredients')
         button_layout.addWidget(manage_ingredients_btn)
@@ -107,7 +108,7 @@ class MainWindow(QMainWindow):
 
         export_button = MainMenuButton('Export Menu')
         button_layout.addWidget(export_button)
-        manage_meals_btn.clicked.connect(self.__open_manage_meals_dialog)
+        export_button.clicked.connect(self.create_menu_list)
 
         layout.addLayout(week_layout)
         layout.addLayout(button_layout)
@@ -123,7 +124,66 @@ class MainWindow(QMainWindow):
         for combobox in self.combo_boxes:
             combobox.clear()
             combobox.addItems(list(map(lambda meal: meal.get_name(), meals)))
-            combobox.setCurrentIndex(-1)
+
+    def create_menu_list(self):
+        meals = get_meals_from_file()
+        ingredients = get_ingredients_from_file()
+
+        meals_for_the_week = []
+
+        for meal in self.combo_boxes:
+            meals_for_the_week.append(meal.currentText())
+
+        ingredient_list: list[str] = []
+        meal_list: list[Meal] = []
+
+        for meal_name in meals_for_the_week:
+            for meal in meals:
+                if meal.get_name() == meal_name:
+                    meal_list.append(meal)
+
+        for ingredient in ingredients:
+            quantity = 0
+            ingredient_name = ''
+            quantifier = 'qty'
+            for meal in meal_list:
+                ingredient_name = ingredient.get_name()
+                meal_ingredients = meal.get_ingredient_names()
+                if ingredient_name not in meal_ingredients:
+                    continue
+                quantity += meal.get_specific_ingredient_quantity(ingredient_name)
+                quantifier = meal.get_specific_ingredient_quantifier(ingredient_name)
+            if quantity == 0:
+                continue
+            ingredient_list.append(f'{quantity:.2f} {quantifier} of {ingredient_name}')
+
+
+        with open('menu.txt', 'w') as f:
+            i = 0
+
+            days = (
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+                'Sunday'
+            )
+
+            f.write('Menu:\n----------------\n')
+            for meal_name in meals_for_the_week:
+                f.write(f'{days[i]}: {meal_name} \n')
+                i += 1
+            f.write(f'\nIngredients Needed for Meals selected:\n-----------------\n')
+            for ingredient in ingredient_list:
+                f.write(ingredient + '\n')
+        success_box = QMessageBox()
+        success_box.setWindowTitle('Success')
+        success_box.setText('Successfully Exported Menu')
+        success_box.exec()
+
+
 
     def __open_manage_ingredients_dialog(self):
 
