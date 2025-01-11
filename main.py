@@ -1,6 +1,4 @@
 import sys
-from classes import *
-
 from manage_ingredients import *
 from manage_meals import *
 from PySide6.QtCore import Qt
@@ -105,11 +103,11 @@ class MainWindow(QMainWindow):
 
         manage_ingredients_btn = MainMenuButton('Manage Ingredients')
         button_layout.addWidget(manage_ingredients_btn)
-        manage_ingredients_btn.clicked.connect(self.open_manage_ingredients_dialog)
+        manage_ingredients_btn.clicked.connect(self.__open_manage_ingredients_dialog)
 
         export_button = MainMenuButton('Export Menu')
         button_layout.addWidget(export_button)
-        manage_meals_btn.clicked.connect(self.open_manage_meals_dialog)
+        manage_meals_btn.clicked.connect(self.__open_manage_meals_dialog)
 
         layout.addLayout(week_layout)
         layout.addLayout(button_layout)
@@ -123,19 +121,18 @@ class MainWindow(QMainWindow):
         meals = get_meals_from_file()
 
         for combobox in self.combo_boxes:
+            combobox.clear()
             combobox.addItems(list(map(lambda meal: meal.get_name(), meals)))
             combobox.setCurrentIndex(-1)
 
-    def open_manage_ingredients_dialog(self):
+    def __open_manage_ingredients_dialog(self):
 
         dlg = ManageIngredients(self)
-        if dlg.exec():
-            print('yes')
-        else:
-            print('no')
+        dlg.exec()
 
-    def open_manage_meals_dialog(self):
-        dlg = ManageMeals()
+
+    def __open_manage_meals_dialog(self):
+        dlg = ManageMeals(self)
         dlg.exec()
 
 def main():
