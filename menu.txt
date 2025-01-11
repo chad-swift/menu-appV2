@@ -1,0 +1,15 @@
+Menu:
+----------------
+Monday: Fast Food 
+Tuesday: Fast Food 
+Wednesday: Turkey Sub 
+Thursday: Fast Food 
+Friday: Fast Food 
+Saturday: Fast Food 
+Sunday: Fast Food 
+
+Ingredients Needed for Meals selected:
+-----------------
+0.10 lbs of Turkey
+0.01 oz of Mustard
+1.00 slc of Tomato
