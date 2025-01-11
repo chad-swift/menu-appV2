@@ -124,6 +124,8 @@ class AddNewMeal(QDialog):
 
         self.meal_ingredients.addItem(item_str)
         self.ingredients_to_add.append((self.ingredients[current_ingredient_index], quantity))
+        self.ingredient_choice.setCurrentIndex(-1)
+        self.quantity.setValue(0)
 
 
     def remove_ingredient_from_meal(self):
