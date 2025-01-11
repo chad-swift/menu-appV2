@@ -1,1 +1,16 @@
-{"ingredients": [{"name": "Tomato", "quantifier": "slc"}, {"name": "Ham", "quantifier": "lbs"}, {"name": "Turkey", "quantifier": "lbs"}]}
+{
+    "ingredients": [
+        {
+            "name": "Tomato",
+            "quantifier": "slc"
+        },
+        {
+            "name": "Ham",
+            "quantifier": "lbs"
+        },
+        {
+            "name": "Turkey",
+            "quantifier": "lbs"
+        }
+    ]
+}
